@@ -1,6 +1,7 @@
 package com.bz.smart_city.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -10,8 +11,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("test")
 public class TestController {
 
-    @PostMapping("test")
+    @GetMapping("test")
     public String test(){
-        return "hello";
+        return "hello1";
     }
 }
