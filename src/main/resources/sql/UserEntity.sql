@@ -1,0 +1,8 @@
+-- auto Generated on 2018-11-26 21:11:56 
+-- DROP TABLE IF EXISTS sc_user; 
+CREATE TABLE sc_user(
+	id INT (11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+	username VARCHAR (50) NOT NULL DEFAULT '' COMMENT 'username',
+	password VARCHAR (50) NOT NULL DEFAULT '' COMMENT 'password',
+	PRIMARY KEY (id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT 'sc_user';

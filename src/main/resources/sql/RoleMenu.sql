@@ -1,0 +1,8 @@
+-- auto Generated on 2018-11-27 09:40:07 
+-- DROP TABLE IF EXISTS sc_role_menu; 
+CREATE TABLE sc_role_menu(
+	id INT (11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+	rid INT (11) NOT NULL DEFAULT -1 COMMENT 'rid',
+	mid INT (11) NOT NULL DEFAULT -1 COMMENT 'mid',
+	PRIMARY KEY (id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT 'sc_role_menu';

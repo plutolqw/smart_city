@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bz.smart_city.dao.MenuDao">
+    <!--auto generated Code-->
+    <resultMap id="BaseResultMap" type="com.bz.smart_city.entity.Menu">
+        <result column="id" property="id" jdbcType="INTEGER"/>
+        <result column="pid" property="pid" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="code" property="code" jdbcType="VARCHAR"/>
+        <result column="url" property="url" jdbcType="VARCHAR"/>
+        <result column="icon" property="icon" jdbcType="VARCHAR"/>
+        <result column="path" property="path" jdbcType="VARCHAR"/>
+        <result column="sort" property="sort" jdbcType="INTEGER"/>
+        <result column="is_menu" property="isMenu" jdbcType="INTEGER"/>
+        <result column="enable" property="enable" jdbcType="INTEGER"/>
+        <collection property="roles" ofType="com.bz.smart_city.entity.Role">
+            <id column="rid" property="id"/>
+            <result column="rname" property="name"/>
+            <result column="rnamezh" property="nameZh"/>
+        </collection>
+    </resultMap>
+
+    <!--auto generated Code-->
+    <sql id="Base_Column_List">
+        id,
+        pid,
+        name,
+        code,
+        url,
+        icon,
+        path,
+        sort,
+        is_menu,
+        enable
+    </sql>
+
+    <!--auto generated Code-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="menu.id">
+        INSERT INTO sc_menu (
+            id,
+            pid,
+            name,
+            code,
+            url,
+            icon,
+            path,
+            sort,
+            is_menu,
+            enable
+        ) VALUES (
+            #{menu.id,jdbcType=INTEGER},
+            #{menu.pid,jdbcType=INTEGER},
+            #{menu.name,jdbcType=VARCHAR},
+            #{menu.code,jdbcType=VARCHAR},
+            #{menu.url,jdbcType=VARCHAR},
+            #{menu.icon,jdbcType=VARCHAR},
+            #{menu.path,jdbcType=VARCHAR},
+            #{menu.sort,jdbcType=INTEGER},
+            #{menu.isMenu,jdbcType=INTEGER},
+            #{menu.enable,jdbcType=INTEGER}
+        )
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="menu.id">
+        INSERT INTO sc_menu
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="menu.id!=null"> id,</if>
+            <if test="menu.pid!=null"> pid,</if>
+            <if test="menu.name!=null"> name,</if>
+            <if test="menu.code!=null"> code,</if>
+            <if test="menu.url!=null"> url,</if>
+            <if test="menu.icon!=null"> icon,</if>
+            <if test="menu.path!=null"> path,</if>
+            <if test="menu.sort!=null"> sort,</if>
+            <if test="menu.isMenu!=null"> is_menu,</if>
+            <if test="menu.enable!=null"> enable,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="menu.id!=null">#{menu.id,jdbcType=INTEGER},
+            </if>
+            <if test="menu.pid!=null">#{menu.pid,jdbcType=INTEGER},
+            </if>
+            <if test="menu.name!=null">#{menu.name,jdbcType=VARCHAR},
+            </if>
+            <if test="menu.code!=null">#{menu.code,jdbcType=VARCHAR},
+            </if>
+            <if test="menu.url!=null">#{menu.url,jdbcType=VARCHAR},
+            </if>
+            <if test="menu.icon!=null">#{menu.icon,jdbcType=VARCHAR},
+            </if>
+            <if test="menu.path!=null">#{menu.path,jdbcType=VARCHAR},
+            </if>
+            <if test="menu.sort!=null">#{menu.sort,jdbcType=INTEGER},
+            </if>
+            <if test="menu.isMenu!=null">#{menu.isMenu,jdbcType=INTEGER},
+            </if>
+            <if test="menu.enable!=null">#{menu.enable,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO sc_menu (
+        <include refid="Base_Column_List"/>
+        )VALUES
+        <foreach collection="menus" item="menu" index="index" separator=",">
+            (
+            #{menu.id,jdbcType=INTEGER},
+            #{menu.pid,jdbcType=INTEGER},
+            #{menu.name,jdbcType=VARCHAR},
+            #{menu.code,jdbcType=VARCHAR},
+            #{menu.url,jdbcType=VARCHAR},
+            #{menu.icon,jdbcType=VARCHAR},
+            #{menu.path,jdbcType=VARCHAR},
+            #{menu.sort,jdbcType=INTEGER},
+            #{menu.isMenu,jdbcType=INTEGER},
+            #{menu.enable,jdbcType=INTEGER}
+            )
+        </foreach>
+    </insert>
+
+    <!--auto generated Code-->
+    <update id="update">
+        UPDATE sc_menu
+        <set>
+            <if test="menu.id != null"> id= #{menu.id,jdbcType=INTEGER},</if>
+            <if test="menu.pid != null"> pid= #{menu.pid,jdbcType=INTEGER},</if>
+            <if test="menu.name != null"> name= #{menu.name,jdbcType=VARCHAR},</if>
+            <if test="menu.code != null"> code= #{menu.code,jdbcType=VARCHAR},</if>
+            <if test="menu.url != null"> url= #{menu.url,jdbcType=VARCHAR},</if>
+            <if test="menu.icon != null"> icon= #{menu.icon,jdbcType=VARCHAR},</if>
+            <if test="menu.path != null"> path= #{menu.path,jdbcType=VARCHAR},</if>
+            <if test="menu.sort != null"> sort= #{menu.sort,jdbcType=INTEGER},</if>
+            <if test="menu.isMenu != null"> is_menu= #{menu.isMenu,jdbcType=INTEGER},</if>
+            <if test="menu.enable != null"> enable= #{menu.enable,jdbcType=INTEGER}</if>
+        </set>
+        WHERE id = #{menu.id,jdbcType=INTEGER}
+    </update>
+
+    <select id="getAllMenu" resultMap="BaseResultMap">
+        select m.*,r.`id` as rid,r.`name` as rname,r.`name_zh` as rnamezh from sc_menu m left join sc_role_menu rm on m.`id`=rm.`mid` left join sc_role r on rm.`rid`=r.`id` WHERE m.`enable`=1 order by m.`id` desc
+    </select>
+</mapper>
+

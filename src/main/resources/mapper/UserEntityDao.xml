@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bz.smart_city.dao.UserEntityDao">
+    <!--auto generated Code-->
+    <resultMap id="BaseResultMap" type="com.bz.smart_city.entity.UserEntity">
+        <result column="id" property="id" jdbcType="INTEGER"/>
+        <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="lazyLoadRoles" type="com.bz.smart_city.entity.UserEntity" extends="BaseResultMap">
+        <collection property="roles" ofType="com.bz.smart_city.entity.Role" select="com.bz.smart_city.dao.UserEntityDao.getRolesByUserId"
+                    column="id"></collection>
+    </resultMap>
+
+    <!--auto generated Code-->
+    <sql id="Base_Column_List">
+        id,
+        username,
+        password
+    </sql>
+
+    <!--auto generated Code-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="userEntity.id">
+        INSERT INTO sc_user (
+            id,
+            username,
+            password
+        ) VALUES (
+            #{userEntity.id,jdbcType=INTEGER},
+            #{userEntity.username,jdbcType=VARCHAR},
+            #{userEntity.password,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="userEntity.id">
+        INSERT INTO sc_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userEntity.id!=null"> id,</if>
+            <if test="userEntity.username!=null"> username,</if>
+            <if test="userEntity.password!=null"> password,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userEntity.id!=null">#{userEntity.id,jdbcType=INTEGER},
+            </if>
+            <if test="userEntity.username!=null">#{userEntity.username,jdbcType=VARCHAR},
+            </if>
+            <if test="userEntity.password!=null">#{userEntity.password,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO sc_user (
+        <include refid="Base_Column_List"/>
+        )VALUES
+        <foreach collection="userEntitys" item="userEntity" index="index" separator=",">
+            (
+            #{userEntity.id,jdbcType=INTEGER},
+            #{userEntity.username,jdbcType=VARCHAR},
+            #{userEntity.password,jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
+
+    <!--auto generated Code-->
+    <update id="update">
+        UPDATE sc_user
+        <set>
+            <if test="userEntity.id != null"> id= #{userEntity.id,jdbcType=INTEGER},</if>
+            <if test="userEntity.username != null"> username= #{userEntity.username,jdbcType=VARCHAR},</if>
+            <if test="userEntity.password != null"> password= #{userEntity.password,jdbcType=VARCHAR}</if>
+        </set>
+        WHERE id = #{userEntity.id,jdbcType=INTEGER}
+    </update>
+
+    <select id="findUserById" resultType="com.bz.smart_city.entity.UserEntity">
+        select <include refid="Base_Column_List"/> from sc_user where id = #{id}
+    </select>
+
+    <select id="findUserList" resultType="com.bz.smart_city.entity.UserEntity">
+        select <include refid="Base_Column_List"/> from sc_user
+    </select>
+
+    <select id="loadUserByUsername" resultMap="lazyLoadRoles">
+        select * from sc_user where username = #{username}
+    </select>
+
+    <select id="getRolesByUserId" resultType="com.bz.smart_city.entity.Role">
+        SELECT r.* FROM sc_user_role sur,sc_role r where sur.rid=r.id AND sur.uid=#{id}
+    </select>
+
+
+</mapper>
+

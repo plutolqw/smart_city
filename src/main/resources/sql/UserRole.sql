@@ -1,0 +1,8 @@
+-- auto Generated on 2018-11-27 09:39:08 
+-- DROP TABLE IF EXISTS sc_user_role; 
+CREATE TABLE sc_user_role(
+	id INT (11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+	uid INT (11) NOT NULL DEFAULT -1 COMMENT 'uid',
+	rid INT (11) NOT NULL DEFAULT -1 COMMENT 'rid',
+	PRIMARY KEY (id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT 'sc_user_role';
